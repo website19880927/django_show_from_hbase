@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>百智招聘</title>
+<link href="/static/style/authority/basic_layout.css" rel="stylesheet" type="text/css">
+<link href="/static/style/authority/common_style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div id="container">
+		<table class="table" cellspacing="0" cellpadding="0"  align="center"  border="0">
+		    <tr>
+		      <th colspan="2" align="center">详情查询</th>
+		    </tr>
+		    <tr>
+		      <td width="100" height="30">城市<span class="TableRow2"></span></td>
+		      <td style="text-align:left">职位</td>
+		      <td style="text-align:left" width="50px">工资</td>
+		      <td style="text-align:left" width="50px">公司</td>
+		      <td style="text-align:left" width="50px">学历</td>
+		      <td style="text-align:left" width="50px">经验</td>
+                <td style="text-align:left">工作内容</td>
+		    </tr>
+            {% for foo in page.object_list %}
+{#                {% if foo.job.length %}#}
+{#                #}
+{#                {% endif %}#}
+                <tr>
+                    <td>{{ foo.city}}</td>
+                    <td>{{ foo.title}}</td>
+                    <td>{{ foo.salary}}</td>
+                    <td>{{ foo.company}}</td>
+                    <td>{{ foo.edu}}</td>
+                    <td>{{ foo.exper}}</td>
+                    <td>{{ foo.job}}</td>
+                </tr>
+
+            {% endfor %}
+
+
+		</table>
+		
+	</div>
+
+   <a href="{% url 'user:intro' %}?num=1">首页</a>
+     {% if page.has_previous %}
+            <a href="{% url 'user:intro' %}?num={{ page.previous_page_number }}">上一页</a>
+
+        {% endif %}
+		 {% for num in page.paginator.page_range %}
+           {% if page.number == num %}
+                <a style="color: red" href="{% url 'user:intro' %}?num={{ num }}">{{ num }}</a>
+            {% else %}
+                <a href="{% url 'user:intro' %}?num={{ num }}">{{ num }}</a>
+           {% endif %}
+
+
+       {% endfor %}
+    {% if page.has_next %}
+                <a href="{% url 'user:intro' %}?num={{ page.next_page_number }}">下一页</a>
+
+            {% endif %}
+		 <a href="{% url 'user:intro' %}?num={{ page.paginator.num_pages }}">尾页</a>
+
+
+
+</body>
+</html>
